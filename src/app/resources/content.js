@@ -52,7 +52,8 @@ const home = {
   description: `Portfolio website showcasing my work as a ${person.role}`,
   headline: (
     <>
-      Javascript <br /> Full Stack Developer
+      Saurabh <br />
+      Full Stack Developer
     </>
   ),
   subline: (
