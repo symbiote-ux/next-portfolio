@@ -13,19 +13,6 @@ const person = {
   languages: ['English', 'Hindi'], // optional: Leave the array empty if you don't want to display languages
 };
 
-const newsletter = {
-  display: true,
-  title: <>Subscribe to {person.firstName}'s Newsletter</>,
-  description: (
-    <>
-      I share insights on JavaScript, dive into the engineering challenges
-      behind travel reservation systems, and explore how thoughtful
-      problem-solving shapes better tech. Expect practical takeaways, a bit of
-      code, and the occasional hot take on building things that scale.
-    </>
-  ),
-};
-
 const social = [
   // Links are automatically displayed.
   // Import new icons in /once-ui/icons.ts
@@ -465,7 +452,7 @@ const about = {
 
 const blog = {
   label: 'Blog',
-  title: 'Writing about design and tech...',
+  title: 'Writing about GenAi and tech...',
   description: `Read what ${person.name} has been up to recently`,
   // Create new blog posts by adding a new .mdx file to app/blog/posts
   // All posts will be listed on the /blog route
@@ -474,7 +461,7 @@ const blog = {
 const work = {
   label: 'Work',
   title: 'My projects',
-  description: `Design and dev projects by ${person.name}`,
+  description: `SchoolArk by ${person.name}`,
   // Create new project pages by adding a new .mdx file to app/blog/posts
   // All projects will be listed on the /home and /work routes
 };
@@ -558,4 +545,4 @@ const gallery = {
   ],
 };
 
-export { person, social, newsletter, home, about, blog, work, gallery };
+export { person, social, home, about, blog, work, gallery };
