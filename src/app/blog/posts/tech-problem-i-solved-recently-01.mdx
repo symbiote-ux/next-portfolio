@@ -1,0 +1,79 @@
+---
+title: 'Tech Problem I solved Recently - 01'
+publishedAt: '2025-08-12'
+image: '/images/perfomanceComparison.png'
+tag: 'Tech'
+---
+
+## Problem Statement: Blocking Rendering
+
+- What it is: Heavy data fetching blocks the entire page render, causing Next.js timeouts.
+
+### Technical impact:
+
+- **Server timeout**: 30+ seconds in some cases.
+- **Bad Ux**: High bounce rate.
+- **SEO penalties**: Poor page speed scores.
+
+### Technical breakdown of problem statement
+
+- **N+1 Query Problem / Over-Fetching**
+
+  - What it is: A function with massive include statements creates a single query that joins 15+ tables simultaneously.
+  - Technical impact:
+    - **Query execution time**: 5-10 seconds.
+    - **Memory usage**: High
+    - **Database load**: Heavy joins across multiple tables
+
+- **Waterfall Loading Pattern**
+
+  - What it is: Everything waits for the slowest component to load before any content is visible.
+  - Technical impact:
+    - **Time to First Contentful Paint (FCP)**: 5+ seconds.
+    - **Time to Interactive (TTI)**: 8+ seconds.
+    - **Largest Contentful Paint (LCP)**: Poor Core Web Vitals.
+
+- **Eager Loading Anti-Pattern**
+  - What it is: Loading gallery images, reviews, and heavy content even when users don't scroll to them.
+  - Technical impact:
+    - **Unnecessary bandwidth**: Loading ~2-5MB of unused data
+    - **Mobile performance**: Poor experience on slow connections
+
+## Solution Architecture & Improvements:
+
+- **Query Decomposition Pattern**
+
+  - Before: Single heavy query -> 5 - 10 seconds
+  - After: Multiple decomposed query -> ~100ms, ~200ms, ~150ms
+  - Measurable improvements:
+    - **Initial page load**: 5 seconds → 500ms (10x faster)
+    - **Database query efficiency**: 15 joins → 1-3 joins per query
+    - **Memory footprint**: ~80% reduction
+
+- **Progressive Enhancement Pattern**
+
+  - Technical concept: Critical content loads first, non-critical content loads on-demand.
+  - Implementation:
+    - **Above-the-fold content**: Loads immediately.
+    - **Below-the-fold content**: Lazy loads with Intersection Observer
+    - **Heavy media**: Loads only when user interacts
+  - Measurable improvements:
+    - Time to First Byte (TTFB): 3 seconds → 200ms
+    - First Contentful Paint: 5 seconds → 800ms
+    - Core Web Vitals score: Poor → Good
+
+- **Request Parallelization**
+  - Technical concept: Multiple small queries run in parallel instead of one blocking query.
+    - Before: Sequential blocking - await heavyQuery() // Blocks everything
+    - After: Parallel non-blocking
+      Promise.all([
+      lightQuery1(),
+      lightQuery2(),
+      lightQuery3()
+      ]) // All run simultaneously
+    - Measurable improvements:
+      - Concurrent request handling: 1 → 5-10 parallel requests
+      - Server utilization: Better resource distribution
+      - Error isolation: One failing section doesn't break entire page
+
+![Performance Optimization Results](/images/perfomanceComparison.png)
