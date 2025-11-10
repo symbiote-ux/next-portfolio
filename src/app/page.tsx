@@ -7,7 +7,6 @@ import {
   Button,
   Avatar,
   RevealFx,
-  Arrow,
   Column,
 } from '@/once-ui/components';
 import { Projects } from '@/components/work/Projects';
@@ -123,6 +122,9 @@ export default function Home() {
       <RevealFx translateY="16" delay={0.6}>
         <Projects range={[1, 1]} />
       </RevealFx>
+      <RevealFx translateY="16" delay={0.6}>
+        <Projects range={[2, 2]} />
+      </RevealFx> 
       {routes['/blog'] && (
         <Flex fillWidth gap="24" mobileDirection="column">
           <Flex flex={1} paddingLeft="l">
@@ -135,7 +137,6 @@ export default function Home() {
           </Flex>
         </Flex>
       )}
-      <Projects range={[2]} />
     </Column>
   );
 }

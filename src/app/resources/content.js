@@ -14,12 +14,15 @@ const person = {
 };
 
 const social = [
-  // Links are automatically displayed.
-  // Import new icons in /once-ui/icons.ts
   {
-    name: 'GitHub',
+    name: 'GitHub Work',
     icon: 'github',
     link: 'https://github.com/saurabhchauhan-T?tab=overview',
+  },
+  {
+    name: 'GitHub Projects',
+    icon: 'github',
+    link: 'https://github.com/symbiote-ux',
   },
   {
     name: 'LinkedIn',
@@ -47,9 +50,13 @@ const home = {
     <>
       I'm Saurabh Chauhan, a Product engineer at{' '}
       <InlineCode>Travelopia</InlineCode>, I develop scalable web applications
-      for travel reservation system, optimizing the user experience and
-      streamlining guest travel workflows. <br /> Outside of work, I work on
-      personal projects.
+      for travel reservation system, optimising the user experience and
+      streamlining guest travel workflows. <br /> Outside of work, I'm building{' '}
+      <InlineCode>schoolArk</InlineCode>, a comprehensive education platform
+      connecting schools, teachers, and students.
+      <InlineCode>Trackye</InlineCode>, a track and manage system with
+      role-based access, Task management, Expense tracking, Employee management
+      and client relationship tools.
     </>
   ),
 };
@@ -67,7 +74,7 @@ const about = {
   },
   calendar: {
     display: true,
-    link: 'https://cal.com',
+    link: 'https://calendly.com/message-schoolark',
   },
   intro: {
     display: true,
@@ -131,19 +138,19 @@ const about = {
         images: [
           // optional: leave the array empty if you don't want to display images
           {
-            src: '/images/projects/project-01/cover-01.png',
+            src: '/images/work/ostara-1.png',
             alt: 'Ostara Itinenary page',
             width: 16,
             height: 9,
           },
           {
-            src: '/images/projects/project-01/cover-02.png',
+            src: '/images/work/ostara-2.png',
             alt: 'Ostara Add service page ',
             width: 16,
             height: 9,
           },
           {
-            src: '/images/projects/project-01/cover-03.png',
+            src: '/images/work/bob-1.png',
             alt: 'Bob Dashboard',
             width: 16,
             height: 9,
@@ -470,13 +477,7 @@ const gallery = {
   label: 'Gallery',
   title: 'My photo gallery',
   description: `A photo collection by ${person.name}`,
-  // Images from https://pexels.com
   images: [
-    {
-      src: '/images/gallery/img-01.jpg',
-      alt: 'image',
-      orientation: 'vertical',
-    },
     {
       src: '/images/gallery/img-02.jpg',
       alt: 'image',
@@ -506,6 +507,11 @@ const gallery = {
       src: '/images/gallery/img-07.jpg',
       alt: 'image',
       orientation: 'horizontal',
+    },
+    {
+      src: '/images/gallery/img-15.jpg',
+      alt: 'image',
+      orientation: 'vertical',
     },
     {
       src: '/images/gallery/img-08.jpg',

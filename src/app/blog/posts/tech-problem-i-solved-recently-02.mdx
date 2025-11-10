@@ -1,0 +1,68 @@
+---
+title: 'Tech Problem I solved Recently - 02'
+publishedAt: '2025-08-13'
+image: '/images/gallery/aws.jpg'
+tag: 'Tech'
+---
+
+![AWS Amplify Repository Update Process](/images/gallery/aws.jpg)
+
+## Problem Statement
+
+- **Changing Repository URL in AWS Amplify**
+- Need to update the GitHub repository connection for a Next.js app deployed on AWS Amplify
+- Attempting to change from one GitHub repository to another (schoolArk → schoolArk_new)
+
+## Limitation
+
+- **AWS Amplify Console Limitation**
+
+  - Cannot directly change GitHub repository URL through the web console
+  - No visible option in Amplify dashboard to modify repository settings
+  - Repository connection is locked after initial setup
+
+- **Security & Access Issues**
+  - Requires proper authentication to connect to new repository
+  - Need to handle GitHub access tokens securely
+  - Repository permissions must be configured correctly
+
+## Solution
+
+- **AWS CLI Approach**
+  - Use AWS Command Line Interface to update app configuration
+  - Leverage `aws amplify update-app` command with specific parameters
+  - Provide new repository URL and access token programmatically
+
+## Process
+
+- **Step 1: Generate GitHub Access Token**
+
+  - Go to GitHub Settings → Developer settings → Personal access tokens
+  - Create new token with appropriate repository (read and write)
+  - Copy the generated token (keep it secure)
+
+- **Step 2: Install/Configure AWS CLI**
+
+  - Ensure AWS CLI is installed: `aws --version`
+  - Configure AWS credentials: `aws configure`
+  - Verify access to Amplify service
+
+- **Step 3: Execute Update Command**
+
+  - Use the command: `aws amplify update-app --app-id d1il0ngwfwkfsdyj --repository http://github.com/symbiote-ux/schoolArk_new --access-token`
+  - Replace `d1il0ngwfwkfsdyj` with your actual Amplify app ID
+  - Replace repository URL with your target repository
+  - Include your GitHub access token at the end
+
+- **Step 4: Verify Changes**
+
+  - Check Amplify console to confirm repository update
+  - Verify build settings and environment variables
+  - Test deployment from new repository
+
+- **Step 5: Clean Up**
+  - Revoke old GitHub access token if no longer needed
+  - Update any documentation or team notifications
+  - Monitor first deployment from new repository
+
+![AWS Amplify Repository Update Process](/images/gallery/aws.jpg)
