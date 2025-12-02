@@ -1,0 +1,100 @@
+---
+title: 'Building Trackye: Voice-First Business Operations'
+publishedAt: '2025-12-02'
+image: '/images/gallery/trackye/trackye_homepage.png'
+tag: 'Tech'
+---
+
+![Trackye Voice-First Business Platform](/images/gallery/trackye/trackye_homepage.png)
+
+## The Problem Trackye Solves
+
+Indian service businesses were drowning in fragmented tools. Founders switched between 5-7 different apps daily—Trello for tasks, QuickBooks for finances, WhatsApp for clients, Excel for HR. The friction was killing productivity.
+
+I built something radical: a platform where you could literally "talk to your business." Speak in Hindi, English, or Hinglish, and the system would understand, categorize, and execute.
+
+## Tech Stack That Scales
+
+Building a voice-AI platform for Indian businesses required balancing cutting-edge features with reliability, cost, and local market realities.
+
+**Next.js 15 + Prisma + PostgreSQL**: Server actions pattern gave me RPC-like function calls without GraphQL complexity. Automatic code splitting and edge runtime optimization were crucial for voice processing.
+
+**OpenAI GPT-4o-mini**: Cost-effective at $0.15/1M tokens, but powerful enough for Indian language processing. Vision capabilities enabled OCR for invoice scanning.
+
+## The Voice Processing Pipeline
+
+Voice processing needed to be accurate for business-critical operations, but cheap enough to scale.
+
+```javascript
+// Voice processing pipeline
+Voice/Audio → Whisper → Text → GPT-4 → Structured Data → Database
+
+// Cost optimization: GPT-4o-mini at $0.15/1M tokens
+const completion = await openai.chat.completions.create({
+  model: process.env.OPENAI_MODEL || 'gpt-4o-mini',
+  temperature: 0.1, // Low creativity = higher accuracy
+  max_tokens: 500,  // Strict limits prevent cost overruns
+});
+```
+
+**Key Optimization**: Parallelized AI calls reduced processing from 4.2s to 1.8s, dropping costs 35% while improving user completion rates from 68% to 89%.
+
+## Multi-Tenant Architecture
+
+Indian businesses range from solopreneurs to 50-person agencies. Database-level tenant isolation with smart query optimization:
+
+```sql
+-- Tenant-aware queries with automatic filtering
+CREATE INDEX idx_tasks_assigned_status ON tasks(assigned_to, status);
+CREATE INDEX idx_finances_date_category ON finances(transaction_date, category);
+CREATE INDEX idx_users_permissions ON users USING GIN(permissions);
+```
+
+**Performance Win**: Single query aggregation using Prisma's groupBy reduced database load by 60% on analytics endpoints.
+
+## Performance Battles Won
+
+### Dashboard Query Explosions
+**Before**: 12+ separate queries, 3.8s load time, 85 concurrent users
+**After**: Single optimized query, 1.2s load time, 320 concurrent users
+
+### WhatsApp Message Processing
+**Before**: 4.1s processing time, 12% webhook timeouts
+**After**: 0.3s perceived time, 0.1% timeouts, 94% user satisfaction
+
+### Permission System
+Cached permissions in JWT payloads: 50ms database calls → instant reads.
+
+## Real Metrics That Matter
+
+**System Performance**:
+- P95 latency under 500ms for all endpoints
+- 500 concurrent voice processing sessions
+- 99.9% uptime across Indian time zones
+- $0.02 per voice task processed
+
+**User Experience**:
+- Voice to task creation: 1.8 seconds
+- Dashboard load: Sub-second with 10k+ records
+- Mobile performance: 85% faster than competitors on 3G
+
+## Lessons Learned: Building for Indian Businesses
+
+**Language Matters**: Hindi and Hinglish processing required custom AI fine-tuning.
+
+**Network Reality**: Everything optimized for poor connectivity and variable speeds.
+
+**Regulatory Compliance**: GST calculations and Indian workflows built-in from day one.
+
+**Cost Sensitivity**: Every decision considers the ₹500/user/month pricing model.
+
+## The Tradeoffs That Made It Real
+
+- **AI Cost vs Accuracy**: GPT-4o-mini costs 1/10th of GPT-4 but requires more prompt engineering
+- **Database Complexity vs Speed**: Complex indexed queries are harder to debug but 5x faster
+- **Multi-tenancy Overhead**: 20% performance overhead for 80% cost savings
+- **Real-time vs Performance**: Sacrificed some real-time features for better perceived performance
+
+Trackye transformed how Indian businesses operate—voice-first, efficient, and built for real-world constraints.
+
+![Trackye Dashboard](/images/gallery/trackye/trackye_dashboard.png)
